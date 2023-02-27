@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>기본페이지</title>
+
+<!-- Font Awesome 5 Icons -->
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+
+</head>
+
+<style>
+
+  #common{
+    border : solid 1px black;
+    width:80%;
+    margin: 5% auto 7% auto;
+    padding: 5%;
+  }
+
+  #top >table{
+        width: 70%;
+        float: right;
+        display:inline:
+        border : solid 1px red;
+        background-color: white;
+  }
+
+  li{
+    list-style:none;
+
+  }
+
+
+</style>
+
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function() {
+
+
+
+
+    }); // end of  $(document).ready(){
+
+
+
+</script>
+<body>
+
+<div id="common" align="center">
+    <div id="top">
+        <table class="table">
+            <thead>
+                <th> <div id='login' class="nav-link text-dark  header_hover header_width" onClick='location.href="http://localhost:8080/login"'>
+                        <div class="text-center"><i class="fas fa-sign-in-alt"></i></div>
+                        <div style="text-align: center;">로그인</div>
+                    </div>
+                </th>
+
+                <th>
+                    <div id='home' class="nav-link text-dark header_hover header_width" onClick='location.href="http://localhost:8080/home'>
+                        <div class="text-center"><i class="fas fa-home fa-lg"></i></div>
+                        <div style="text-align: center;">홈</div>
+                    </div>
+                </th>
+                <th>
+                    <div id='join' class="nav-link text-dark  header_hover header_width" onClick='location.href="http://localhost:8080/join'>
+                        <div class="text-center"><i class="fas fa-user-plus"></i></div>
+                        <div style="text-align: center;">join</div>
+                    </div>
+                </th>
+            </thead>
+        </table>
+<!--
+        <li class="nav-item" >
+            <div id='login' class="nav-link text-dark  header_hover header_width" onClick='location.href="http://localhost:8080/login"'>
+                <div class="text-center"><i class="fa-solid fa-right-to-bracket"></i></div>
+                <div style="text-align: center;">로그인</div>
+            </div>
+        </li>
+
+        <li class="nav-item"  >
+            <div id='home' class="nav-link text-dark header_hover header_width" onClick='location.href="http://localhost:8080/home'>
+                <div class="text-center"><i class="fas fa-home fa-lg"></i></div>
+                <div style="text-align: center;">홈</div>
+            </div>
+        </li>
+        <li class="nav-item" >
+            <div id='join' class="nav-link text-dark  header_hover header_width" onClick='location.href="http://localhost:8080/join'>
+                <div class="text-center"><i class="fa-solid fa-user-plus"></i></div>
+                <div style="text-align: center;">join</div>
+            </div>
+        </li>-->
+    </div>
+
+
+
+</div>
+
+</body>
+</html>

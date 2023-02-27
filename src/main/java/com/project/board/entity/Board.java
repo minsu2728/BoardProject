@@ -35,7 +35,7 @@ public class Board {
     // 기본생성자 필수
     public Board() { }
 
-    public Board(String subject,String contnent, String registerdate){
+    public Board(String subject, String contnent, String registerdate){
         this.subject = subject;
         this.contnent = contnent;
         this.registerdate = registerdate;

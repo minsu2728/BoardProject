@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/default_layout">
+<head>
+    <meta charset="UTF-8">
+    <!--부트스트랩-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Login</title>
+</head>
+
+<style>
+
+
+    .layout{
+        width: 30%;
+        margin : 7% auto;
+        border: solid 1px red;
+    }
+
+    div#container{
+        width:100%;
+        border: solid 1px black;
+    }
+
+
+</style>
+
+<body>
+
+<script type="text/javascript">
+
+    $(document).ready(function({
+
+        // 로그인버튼을 누른경우
+        $("input#btn_submit").click(function(e){
+
+
+            //alert("버튼")
+        });
+
+        // 엔터를 누른경우
+        $("input#pwd").keydown(function(e){
+            if(e.keycode==13){
+                func(btn_submit)
+            }
+        });
+
+
+    }); // end of $(document).ready(function({
+
+    function btn_submit(){
+        const id = $("input#id").val();
+        const pwd = $("input#pwd").val();
+
+        if(id.trim() == "") {
+            alert("아이디를 입력해주세요")
+            $("input#id").val("");
+			$("input#id").focus();
+        }
+
+
+       var reg = "^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$";
+       var txt = pwd;
+
+        if(pwd.trim() == ""){
+            alert("비밀번호를 입력해주세요")
+            $("input#pwd").val("");
+			$("input#pwd").focus();
+        }
+        else if(!reg.test(txt)){
+            alert("최소 8 자, 하나 이상의 문자, 하나의 숫자 및 하나의 특수 문자를 사용해주세요!!");
+            return false;
+        }
+
+        const frm = document.frm_gologin
+        frm.action = "";
+		frm.method="POST";
+		frm.submit();
+    }
+
+
+
+</script>
+<div>
+<th:block layout:fragment="content">
+<!--  <div style="background-color:#911F27; min-height:1000px;">-->
+    <form name="frm_gologin">
+        <div class="layout">
+        <div align="center" id="container" style="solid 1px red;">
+            <img src="/images/blogLogo.png" width="200px;"></img>
+            <div align="center">
+                <p>ID : <input type="email" id="id" style="width: 90%;margin:auto;" required/></p>
+                <p>PW : <input type="password" id="pwd" style="width: 90%; margin:auto;" required placeholder=""/></p>
+                <a href="/board/join">회원가입</a>
+                <input type="button" id="btn_submit">로그인</input>
+            </div>
+        </div>
+        </div>
+    </form>
+</th:block>
+</div>
+
+
+</body>
+</html>

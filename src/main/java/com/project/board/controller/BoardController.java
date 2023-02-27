@@ -13,10 +13,26 @@ import java.util.List;
 @Controller
 public class BoardController {
 
-    @Autowired
+  /*  @Autowired
     private InterBoardService boardService;
+*/
 
-    @RequestMapping(value = "/board/login")
+
+    @GetMapping("/board/home")
+    public String boardList(){
+
+        return"board/boardList";
+    }
+
+    @GetMapping("board/main")
+    public String main(){
+        return "board/main";
+    }
+
+
+/*
+
+    @RequestMapping(value = "/boardList")
     public String login(Model model){
         try{
             List<Board> boardList = boardService.listBoard();
@@ -24,6 +40,16 @@ public class BoardController {
         } catch(Exception e) {
             e.printStackTrace();
         }
-        return "";
+        return "pages/views/login";
     }
+
+    @GetMapping("boardlist")
+    public String write() {
+
+        return "boardList";
+    }
+
+*/
+
+
 }
