@@ -1,34 +1,38 @@
-
 package com.project.board.entity;
-/*
+
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import javax.persistence.*;
+import java.util.Date;
+
 
 @Entity
+@Data
+@AllArgsConstructor // 이필드 모두를 매개변수로 사용할 수 있는 생성자를 만들어줌
 @Table(name="tbl_member")
 public class Member {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Private long mnum;
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment지정
+    private Long mnum;
 
-    Private String id;
-    Private String pwd;
-    Private String name;
-    Private String mobile;
-    Private String regdate;
+    @Column
+    private String id;
 
-    public Member();
+    @Column
+    private String pwd;
 
-    public Member(String id, String pwd, String name, String mobile, String regdate){
-        this.id = id;
-        this.pwd = pwd;
-        this.name = name;
-        this.mobile = mobile;
-        this.regdate = regdate;
-    }
+    @Column
+    private String name;
 
+    @Column
+    private String mobile;
 
+    @Column
+    private String regdate;
 
 
 }
-*/
+

@@ -29,21 +29,20 @@
 
 <body>
 
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
 
-    $(document).ready(function({
+    $(document).ready(function(){
 
         // 로그인버튼을 누른경우
         $("input#btn_submit").click(function(e){
-
-
-            //alert("버튼")
+            btn_submit
         });
 
         // 엔터를 누른경우
         $("input#pwd").keydown(function(e){
             if(e.keycode==13){
-                func(btn_submit)
+                btn_submit
             }
         });
 
@@ -74,8 +73,8 @@
             return false;
         }
 
-        const frm = document.frm_gologin
-        frm.action = "";
+        const frm = document.frm_gologin;
+        frm.action = "http://localhost:8080/board/loginEnd";
 		frm.method="POST";
 		frm.submit();
     }
@@ -91,8 +90,8 @@
         <div align="center" id="container" style="solid 1px red;">
             <img src="/images/blogLogo.png" width="200px;"></img>
             <div align="center">
-                <p>ID : <input type="email" id="id" style="width: 90%;margin:auto;" required/></p>
-                <p>PW : <input type="password" id="pwd" style="width: 90%; margin:auto;" required placeholder=""/></p>
+                <p>ID : <input type="email" id="id" name="id" style="width: 90%;margin:auto;" required/></p>
+                <p>PW : <input type="password" id="pwd" name="pwd" style="width: 90%; margin:auto;" required placeholder=""/></p>
                 <a href="/board/join">회원가입</a>
                 <input type="button" id="btn_submit">로그인</input>
             </div>

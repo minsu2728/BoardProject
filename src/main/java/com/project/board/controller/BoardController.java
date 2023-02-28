@@ -1,22 +1,15 @@
 package com.project.board.controller;
 
-import com.project.board.entity.Board;
-import com.project.board.service.InterBoardService;
+import com.project.board.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.List;
 
 @Controller
 public class BoardController {
 
-  /*  @Autowired
-    private InterBoardService boardService;
-*/
-
+    @Autowired
+    private BoardService boardService;
 
     @GetMapping("/board/home")
     public String boardList(){
