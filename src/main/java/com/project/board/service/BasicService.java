@@ -5,7 +5,6 @@ import com.project.board.repository.InterBasicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -27,7 +26,24 @@ public class BasicService {
 
 
 
+    // 로그인
+    public boolean login(Member member) {
+
+        Member findUserID =  basicRepository.findById(member.getId());
+
+        if(findUserID == null){
+            return false;
+        }
+
+        if(!findUserID.getPwd().equals(member.getPwd())){
+            return false;
+        }
+
+        return true;
+    }
 
 
 
-}
+
+
+} // public class BasicService {

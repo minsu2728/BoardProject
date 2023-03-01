@@ -1,6 +1,12 @@
 package com.project.board.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.time.LocalDate;
 
 /*
 >>> @Entity <<<
@@ -19,6 +25,8 @@ import javax.persistence.*;
 */
 
 @Entity
+@Data
+@AllArgsConstructor // 이필드 모두를 매개변수로 사용할 수 있는 생성자를 만들어줌
 @Table(name="tbl_board")
 public class Board {
 
@@ -26,12 +34,20 @@ public class Board {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long subno;
 
+    @Column
     private long fk_mnum;
+
+    @Column
     private String subject;
+
+    @Column
     private String contnent;
-    private String registerdate;
 
+    @Column
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate registerdate;
 
+/*
     // 기본생성자 필수
     public Board() { }
 
@@ -39,46 +55,10 @@ public class Board {
         this.subject = subject;
         this.contnent = contnent;
         this.registerdate = registerdate;
-    }
+    }*/
 
 
-    public long getSubno() {
-        return subno;
-    }
 
-    public void setSubno(long subno) {
-        this.subno = subno;
-    }
 
-    public long getFk_mnum() {
-        return fk_mnum;
-    }
 
-    public void setFk_mnum(long fk_mnum) {
-        this.fk_mnum = fk_mnum;
-    }
-
-    public String getSubject() {
-        return subject;
-    }
-
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
-
-    public String getContnent() {
-        return contnent;
-    }
-
-    public void setContnent(String contnent) {
-        this.contnent = contnent;
-    }
-
-    public String getRegisterdate() {
-        return registerdate;
-    }
-
-    public void setRegisterdate(String registerdate) {
-        this.registerdate = registerdate;
-    }
 }

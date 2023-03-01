@@ -1,9 +1,14 @@
 package com.project.board.controller;
 
+import com.project.board.entity.Board;
 import com.project.board.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 
 @Controller
 public class BoardController {
@@ -11,38 +16,50 @@ public class BoardController {
     @Autowired
     private BoardService boardService;
 
-    @GetMapping("/board/home")
-    public String boardList(){
 
-        return"board/boardList";
-    }
-
-    @GetMapping("board/main")
-    public String main(){
-        return "board/main";
-    }
-
-
-/*
-
-    @RequestMapping(value = "/boardList")
-    public String login(Model model){
-        try{
-            List<Board> boardList = boardService.listBoard();
+    // 첫화면
+    @GetMapping("/boardHome")
+    public String login(){
+       /*try{
+            List<Board> boardList = boardService.boardList();
             model.addAttribute("boardList", boardList);
         } catch(Exception e) {
             e.printStackTrace();
-        }
-        return "pages/views/login";
+        }*/
+        return"board/boardHome";
     }
 
-    @GetMapping("boardlist")
-    public String write() {
+/*    Model model, Board board*/
 
-        return "boardList";
+
+    // 글쓰기
+    @GetMapping("/board/boardWrite")
+    public String write(){
+      /*  try{
+
+
+        }catch(Exception e) {
+            e.printStackTrace();
+        }*/
+        return"board/boardWrite";
+
     }
 
-*/
+
+    // 글쓰기 처리
+    @RequestMapping("/board/wirteGo")
+    public String writeGo(Board board){
+
+        System.out.println(board.getSubject());
+        System.out.println(board.getContnent());
+        return "";
+    }
+
+
+
+
+
+
 
 
 }

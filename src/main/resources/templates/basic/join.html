@@ -13,44 +13,80 @@
 </head>
 <style>
 
-    .layout{
-        width: 30%;
-        margin : 7% auto;
-        border: solid 1px red;
-    }
 
-    div#container{
-        width:100%;
-        border: solid 1px black;
-    }
-    tbody > tr {
-        padding-bottom: 10%;
-        width: 90%;
-    }
+  body{ background-color: #ecf0f1; }
 
-    input{
-        width: 80%;
-    }
+  #common{
+    width:80%;
+    margin: 0 auto 7% auto;
+    padding: 3%;
+    min-height:100px;
+  }
+
+  #header{
+    margin: 3% 0;
+  }
+
+   #header > img {
+    width: 35%;
+    height: 200px;
+   }
+
+
+  div#banner > nav > a{
+    margin-left:2%;
+  }
+
+  div#banner > nav > a> i{
+    margin-right:1%;
+  }
+
+  div#banner > nav > a{
+    text-decoration: none;
+     color: #34495e;
+   }
+
+<!-- ======================================== Content 시작 ======================================== -->
+  section{
+    margin: 20% 0 5% 0;
+  }
+
+  .table{
+    width: 40%;
+    border: solid 1px #34495e;
+  }
+
+  th{
+    text-align: center;
+  }
 
     button{
         cursor: pointer;
         border: none;
     }
+
     button#btn_idcheck{
-        background-color: #ff99aa;
+        background-color: #34495e;
+        color:white;
     }
 
     #btn_button > button{
-        width: 20%;
-        margin: 5% auto;
+        margin: 3% auto;
     }
 
-    div.msg , #id_check, #mobile{
+    div.msg , #id_check, .mobile{
         color:red;
     }
 
+    input{
+        width:100%;
+    }
+
+    input#id{
+        width: 80%;
+    }
+
     input.mobile{
-        width:30%;
         margin-right:1%;
     }
     tr> td.first-child{
@@ -60,6 +96,13 @@
         font-size:12px;
     }
 
+    div#btn_button > button >a{
+        text-decoration: none;
+        color: black;
+    }
+
+
+
 
 
 </style>
@@ -67,6 +110,7 @@
 
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
+<!--
 
 let idClickCheck = false;
 
@@ -77,7 +121,7 @@ let idClickCheck = false;
         $("div#id_no").hide();
         $("div#pwd_msg").hide();
         $("div#id_check").hide();
-        $("div#mobile").hide();
+        $("div.mobile").hide();
 
 
 
@@ -97,7 +141,7 @@ let idClickCheck = false;
             else{
                 $("div.msg").hide();
             }
-           }); // 아이디 --------------------------------------------------
+           }); // 아이디 &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;
 
 
            	//  아이디값이 변경되면 가입하기 버튼을 클릭시 "아이디중복확인" 을 클릭했는지 클릭안했는지를 알아보기위한 용도 초기화 시키기
@@ -130,7 +174,7 @@ let idClickCheck = false;
             else{
                 $("div.pwd_msg").hide();
             }
-           }); // 비밀번호 -------------------------------------------------
+           }); // 비밀번호 -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;
 
 
             // === 이름 ===
@@ -145,7 +189,7 @@ let idClickCheck = false;
                 else{
                     $("div.msg").hide();
                 }
-           }); // 이름 -------------------------------------------------
+           }); // 이름 -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;
 
 
 
@@ -178,7 +222,7 @@ let idClickCheck = false;
 
 				}
 
-			}); // end of $("input#hp2").blur() ----------------- // 아이디가 hp2 인 것은 포커스를 잃어버렸을 경우(blur) 이벤트를 처리해주는 것이다.
+			}); // end of $("input#hp2").blur() -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; // 아이디가 hp2 인 것은 포커스를 잃어버렸을 경우(blur) 이벤트를 처리해주는 것이다.
 
             // === 핸드폰3 ===
 			$("input#hp3").blur( function(e) {
@@ -206,10 +250,10 @@ let idClickCheck = false;
                     $("div.mobile").hide();
 				}
 
-			}); // end of $("input#hp3").blur() ----------------- // 아이디가 hp3 인 것은 포커스를 잃어버렸을 경우(blur) 이벤트를 처리해주는 것이다.
+			}); // end of $("input#hp3").blur() -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; // 아이디가 hp3 인 것은 포커스를 잃어버렸을 경우(blur) 이벤트를 처리해주는 것이다.
 
                 go_join();
-        }); // end of $("button#btn_join").click(function(){ ------------------------
+        }); // end of $("button#btn_join").click(function(){ &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;
     });    // $(document).ready(function()
 
 
@@ -254,7 +298,7 @@ let idClickCheck = false;
 	                }
 	            }); // $ajax
 
-          }; // 아이디 확인 --------------------------------------
+          }; // 아이디 확인 &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;
 
 
     // 가입하기 버튼 클릭시
@@ -273,61 +317,85 @@ let idClickCheck = false;
         }
 
     }
+-->
 
 </script>
 <body>
 
-<div class="layout">
 <form name="frm_join">
-    <div id="container" align="center">
-        <table class="table">
-        <tbody>
-            <tr>
-                <td>ID<td>
-                <td><input type="text" id="id" name="id" autofocus required/><button type="button" class="btn btn-sm" style="width: 20%;" id="btn_idcheck" onclick="func_idCheck()">확인</button>
-                    <div class="msg">해당 칸을 입력해주세요.</div>
-                    <div id="id_check"></div>
-                    <div id="id_ok" style="color:#666666">사용가능한 ID입니다.</div>
-                    <div id="id_no" style="color:#ff4d4d">이미 사용중인 ID입니다.</div>
-                </td>
+    <div id="wrap" align="center">
+        <div id="common">
 
-            </tr>
+            <div id="banner" align="right">
+                <nav>
+                    <a href="http://localhost:8080/login"><i class="fas fa-sign-in-alt"></i>LOGIN</a>
+                    <a href="http://localhost:8080/boardHome"><i class="fas fa-home fa-lg"></i>HOME</a>
+                    <a href="http://localhost:8080/join"><i class="fas fa-sign-in-alt"></i>JOIN</a>
+                </nav>
+            </div>
 
-            <tr>
-                <td>PWD<td>
-                <td><input type="password" id="pwd" name="pwd" required placeholder="8자이상 숫자,문자,특수문자를 사용해주세요."/>
-                    <div class="msg">필수입력사항입니다.</div>
-                    <div id="pwd_msg">비밀번호는 최소 8자, 하나 이상의 문자, 하나의 숫자 및 하나의 특수 문자를 사용해주세요.</div>
-                </td>
+            <header id="header">
+                <img src="../images/mainlogo.png">
+            </header>
 
-            </tr>
-            <tr>
-                <td>이 름<td>
-                <td> <input type="text" id="name" name="name" required/>
-                    <div class="msg">해당 칸을 입력해주세요.</div>
-                </td>
+            <section>
+                <div align="center">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td>ID<td>
+                        <td><input type="text" id="id" name="id" autofocus required/>
+                            <button type="button" class="btn btn-sm" style="width: 17%; margin-left:1%;" id="btn_idcheck" onclick="func_idCheck()">확인</button>
+                            <div class="msg">해당 칸을 입력해주세요.</div>
+                            <div id="id_check"></div>
+                            <div id="id_ok" style="color:#666666">사용가능한 ID입니다.</div>
+                            <div id="id_no" style="color:#ff4d4d">이미 사용중인 ID입니다.</div>
+                        </td>
 
-            </tr>
-            <tr>
-                <td>전화번호<td>
-                <td>
-                    <input type="text" id="hp1" name="mobile"size="6" maxlength="3" value="010" class="requiredInfo" required />&nbsp;-&nbsp;
-                    <input type="text" id="hp2" name="mobile" size="6" maxlength="4" class="requiredInfo" required/>&nbsp;-&nbsp;
-                    <input type="text" id="hp3" name="mobile" size="6" maxlength="4" class="requiredInfo" required/>
-                    <div class="msg">해당 칸을 입력해주세요.</div>
-                    <div class="mobile">전화번호를 알맞게 입력해주세요.</div>
-                </td>
-            </tr>
-        </tbody>
-        </table>
-        <div align="center" id="btn_button">
-            <button type="button" class="btn btn-primary btn-sm" style="color:black;" ><a href="/board/login">CANCLE</a></button>
-            <button type="submit" id="btn_join" class="btn btn-danger btn-sm">JOIN</button>
+                    </tr>
+
+                    <tr>
+                        <td>PWD<td>
+                        <td><input type="password" id="pwd" name="pwd" required placeholder="8자이상 숫자,문자,특수문자를 사용해주세요."/>
+                            <div class="msg">필수입력사항입니다.</div>
+                            <div id="pwd_msg">비밀번호는 최소 8자, 하나 이상의 문자, 하나의 숫자 및 하나의 특수 문자를 사용해주세요.</div>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>이 름<td>
+                        <td> <input type="text" id="name" name="name" required/>
+                            <div class="msg">해당 칸을 입력해주세요.</div>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>전화번호<td>
+                        <td>
+                            <input type="text" id="hp1" name="mobile"size="6" maxlength="3" value="010" class="requiredInfo" disabled style="width:28%;" ty required />&nbsp;-&nbsp;
+                            <input type="text" id="hp2" name="mobile" size="6" maxlength="4" class="requiredInfo" required style="width:28%;"/>&nbsp;-&nbsp;
+                            <input type="text" id="hp3" name="mobile" size="6" maxlength="4" class="requiredInfo" required style="width:28%;"/>
+                            <div class="msg">해당 칸을 입력해주세요.</div>
+                            <div class="mobile">전화번호를 알맞게 입력해주세요.</div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div align="center" id="btn_button">
+                    <button type="button" class="btn btn-sm" style="background-color:#d9d9d9;  margin-right:5%;" ><a href="/login">CANCLE</a></button>
+                    <button type="submit" id="btn_join" class="btn btn-sm" style="color:white; background-color: #34495e">JOIN</button>
+                </div>
+            </div>
+        </section>
+
+            <footer style="margin-top:5%;">
+                <div align="center" style="color:#d9d9d9;">
+                    Copyright ⓒ 2023 MinsuBoardProject. All Right Reserved
+                </div>
+            </footer>
         </div>
     </div>
-
 </form>
-</div>
 
 </body>
 </html>
