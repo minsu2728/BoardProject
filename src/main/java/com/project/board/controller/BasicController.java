@@ -8,13 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class BasicController {
@@ -33,31 +29,24 @@ public class BasicController {
 
     // 로그인 처리
     @RequestMapping(value="/loginEnd", method = RequestMethod.POST)
-    public String loginEnd(Model model, ModelAndView mav, Member member, HttpServletResponse  response){  // BindResult 검증 오류가 발생할 경우 오류 내용을 보관하는 스프링 프레임워크에서 제공하는 객체
+    public String loginEnd(Model model, Member member, HttpServletResponse  response, HttpSession session){  // BindResult 검증 오류가 발생할 경우 오류 내용을 보관하는 스프링 프레임워크에서 제공하는 객체
         System.out.println(member.getId());
         System.out.println(member.getPwd());
 
-        boolean bool = true;
-        /*basicService.login(member);*/
-        bool = basicService.login(member);
+        Member loginuser = basicService.login(member);
 
-        String result = String.valueOf(bool);
-        if(result.equals(false)){
-            return "board/boardWrite";
+        session.setAttribute("loginuser",loginuser);
+        model.addAttribute("loginuser",loginuser);
+
+        if(loginuser == null) {
+            model.addAttribute("message","로그인 실패");
+            model.addAttribute("loc","redirect:/login");
+            return "msg";
         }
+        model.addAttribute("loc","/boardHome");
+        model.addAttribute("message","로그인성공");
 
-/*
-
-        mav.addObject("message", "로그인 성공적으로 처리되었습니다.");
-        mav.addObject("loc", "http://localhost:8080/board/boardHome");
-*/
-        model.addAttribute("result", result);
-
-        //쿠키에 시간 정보를 주지 않으면 세션 쿠기(브라우저 종료시 모두 종료)
-        Cookie idCookie = new Cookie("userid", member.getId());
-        response.addCookie(idCookie);
-
-       return "board/boardHome";
+       return "msg";
     }
 
 
@@ -77,14 +66,16 @@ public class BasicController {
 
         System.out.println(member.getId());
 
-
         if(member.getId().isEmpty()) {
             return "-1";
         }
         List<Member> findIdCheck = basicService.findIdCheck(member.getId());
 
-        if(findIdCheck.size()>1){ // 멤버 존재
-            return "0";
+        System.out.println("!!!" + findIdCheck );
+
+
+        if(findIdCheck.size() > 0){ // 멤버 존재
+            return "null";
         }
         model.addAttribute("id",findIdCheck); // 사용가능
         return "1";
@@ -93,29 +84,26 @@ public class BasicController {
     
     // 회원가입 저장
     @PostMapping("/board/joinEnd")
-    public ModelAndView joinEnd(Model model, ModelAndView mav, Member member){
+    public String joinEnd(Model model, Member member){
 
         try{
-
-            /*member.setRegdate(LocalDate.now());*/
-       /*     Member joinEnd = this.member.save(member);*/
             Member n = basicService.joinEnd(member);
 
             if(!n.getId().isEmpty()){
-                mav.addObject("message", "회원가입이 성공적으로 처리되었습니다.");
-                mav.addObject("loc", "http://localhost:8080/board/boardHome");
-                return mav;
+                model.addAttribute("message", "회원가입이 성공적으로 처리되었습니다.");
+                model.addAttribute("loc", "/boardHome");
+                return "msg";
             }
                 String message = "회원가입 실패.";
                 String loc = "javascript:history.back()";
 
-                mav.addObject("message", message);
-                mav.addObject("loc", loc);
+                model.addAttribute("message", message);
+                model.addAttribute("loc", loc);
 
         }catch (Exception e) {
             e.printStackTrace();
         }
-        return mav;
+        return "msg";
     }
     
     // 로그아웃

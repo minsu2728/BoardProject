@@ -120,24 +120,25 @@
             <img src="../images/mainlogo.png">
         </header>
 
-        <form name="frm_write">
+        <form name="frm_update" th:action="@{/board/boardUpdate/{subno}(subno=${board.subno})}" method="post">
             <section>
             <div id="container">
                 <table class="table ">
                     <tbody>
                     <tr>
                         <td>제목<td>
-                        <td><input type="text" id="subject" name="subject" autofocus required/></td>
+                        <td><input type="text" id="subject" th:value="${board.subject}" name="subject" autofocus required/></td>
                     </tr>
                     <tr>
                         <td>내용<td>
-                        <td><textarea name="content" id="content"></textarea></td>
+                        <td><textarea name="content" th:text="${board.subject}" id="content"></textarea></td>
+                        <input  sty type="hidden" th:value="${board.subno}" id="subno" name="subno"/>
                     </tr>
                     </tbody>
                 </table>
 
                 <div align="right" id="btn_button">
-                    <button type="button" id="btn_join" class="btn btn-sm" style="color:white; background-color: #34495e">저장</button>
+                    <button type="submit" id="btn_join" class="btn btn-sm" style="color:white; background-color: #34495e">수정</button>
                 </div>
 
             </div>

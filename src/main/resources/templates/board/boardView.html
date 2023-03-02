@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+    <!--부트스트랩-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <title>상세페이지</title>
+</head>
+
+<style>
+
+  body{ background-color: #ecf0f1; }
+
+  #common{
+    width:70%;
+    margin: 0 auto 7% auto;
+    padding: 3%;
+    min-height:100px;
+  }
+
+  #header{
+    margin: 3% 0;
+  }
+
+   #header > img {
+    width: 40%;
+    height: 200px;
+   }
+
+  div#banner > nav > a{
+    margin-right:2%;
+  }
+
+  div#banner > nav > a> i{
+    margin-right:1%;
+  }
+
+  div#banner > nav > a{
+    text-decoration: none;
+     color: #34495e;
+   }
+
+<!-- ======================================== Content 시작 ======================================== -->
+  section{
+    margin: 7% 0 5% 0;
+    min-height: 500px;
+  }
+
+  nav#search > select,input {
+    border: none;
+    background-color:#d9d9d9;
+
+  }
+
+  div#btn_button{
+    margin:5% 0;
+
+  }
+
+  div#btn_button > button:first-child{
+    background-color: #d9d9d9;
+  }
+
+  div#btn_button > button:last-child{
+    background-color: #34495e;
+    color: white;
+  }
+
+
+</style>
+
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript">
+
+
+    $(document).ready(function() {
+
+        $("button#btn_del").click(function(){
+
+        });
+
+
+    }); // end of  $(document).ready(){
+
+
+    function func_update(subno){
+
+
+       $.ajax({
+            url : 'http://localhost:8080/board/boardUpdate',
+            data:{"subno":$("input:name='subno'").val()},
+            type:'POST',
+            dataType:'text',
+            cache:false,
+            success:function(text){
+                if(text=="1"){ // 사용가능
+                    alert("글이 정상적으로 삭제되었습니다.");
+                    locatiion.href="http://localhost:8080/board/boardHome";
+                }
+                if(text=="1"){ // 중복
+                    alert("글이 정상적으로 삭제되었습니다.");
+                    locatiion.href="redirect:/board.boardView";
+                }
+
+            },error: function(request, status, error){
+                alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+                }
+            }); // $ajax
+
+
+    }
+
+
+
+
+</script>
+<body>
+
+<div id="wrap" align="center">
+    <div id="common">
+
+        <div id="banner" align="right">
+            <nav>
+                <a href="http://localhost:8080/login"><i class="fas fa-sign-in-alt"></i>LOGIN</a>
+                <a href="http://localhost:8080/boardHome"><i class="fas fa-home fa-lg"></i>HOME</a>
+                <a href="http://localhost:8080/join"><i class="fas fa-user-plus"></i>JOIN</a>
+            </nav>
+        </div>
+
+        <header id="header">
+            <img src="../images/mainlogo.png">
+        </header>
+
+        <section>
+
+            <div align="right" id="btn_button">
+                <button type="button" id="btn_del" class="btn btn-sm" th:onclick="|location.href='@{/board/boardDelete(subno=${board.subno})}'|">삭제</button>
+
+                <button type="button" id="btn_up" class="btn btn-sm"  th:onclick="|location.href='@{/board/override/{subno}(subno=${board.subno})}'|">수정</button>
+            </div>
+
+            <div style="margin: 5% 0;">
+                <div align="left"><p th:text="${board.subject}" style="border:solid 1px black;">제목</p></div>
+                <p th:text="${board.content}" style="border:solid 1px black; height:300px; padding-top:2%;">내용</p>
+                <input  sty type="hidden" th:value="${board.subno}" id="subno" name="subno"/>
+            </div>
+        </section>
+
+        <footer style="margin-top:5%;">
+            <div align="center">
+                Copyright ⓒ 2023 MinsuBoardProject. All Right Reserved
+            </div>
+        </footer>
+
+    </div>
+</div>
+
+</body>
+</html>

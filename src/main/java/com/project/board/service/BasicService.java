@@ -5,6 +5,8 @@ import com.project.board.repository.InterBasicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Service
@@ -27,19 +29,19 @@ public class BasicService {
 
 
     // 로그인
-    public boolean login(Member member) {
+    public Member login(Member member) {
 
-        Member findUserID =  basicRepository.findById(member.getId());
+        Member loginuser =  basicRepository.findById(member.getId());
 
-        if(findUserID == null){
-            return false;
+        if(loginuser == null){
+            return null;
         }
 
-        if(!findUserID.getPwd().equals(member.getPwd())){
-            return false;
+        if(!loginuser.getPwd().equals(member.getPwd())){
+            return null;
         }
-
-        return true;
+        System.out.println("!!!"+ basicRepository.findById(member.getId()));
+        return loginuser;
     }
 
 

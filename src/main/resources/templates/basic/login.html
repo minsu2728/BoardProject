@@ -52,8 +52,14 @@
   }
 
     div#container{
-      width: 30%;
+      width: 100%;
     }
+
+    table{
+        margin: 5% 0 3% 0;
+        width: 30%;
+    }
+
 
     button.btn_join > a{
         text-decoration: none;
@@ -72,7 +78,7 @@
 
         // 로그인버튼을 누른경우
         $("button#btn_submit").click(function(e){
-            alert("누름");
+
             btn_submit();
         });
 
@@ -129,6 +135,7 @@
         <div id="common">
 
             <div id="banner" align="right">
+
                 <nav>
                     <a href="http://localhost:8080/login"><i class="fas fa-sign-in-alt"></i>LOGIN</a>
 
@@ -146,9 +153,21 @@
             <section>
                 <div align="center" id="container">
                     <div align="center">
-                        <p>ID : <input type="text" id="id" name="id" style="width: 90%;margin:auto;"  placeholder="ID를 입력해주세요."/></p>
-                        <p>PW : <input type="password" id="pwd" name="pwd" style="width: 90%; margin:auto;"  placeholder="8글자이상 문자,숫자,특수문자를 사용해주세요."/></p>
-                        <div id="msg" style="color:red;"></div>
+
+
+                        <table>
+                            <tbody>
+                            <tr class="mb-5">
+                                <td>ID</td>
+                                <td><input type="text" id="id" name="id" style="width: 90%;margin:auto;"  placeholder="ID를 입력해주세요."/></td>
+                            </tr>
+                            <tr>
+                                <td>PWD</td>
+                                <td><input type="password" id="pwd" name="pwd" style="width: 90%; margin:auto;"  placeholder="8글자이상 문자,숫자,특수문자를 사용해주세요."/></td>
+                            </tr>
+                            </tbody>
+                        </table>
+
                         <button type="button" class="btn btn-sm btn_join" style="background-color:#d9d9d9; margin-right:5%;" ><a href="/join">JOIN</a></button>
                         <button type="submit" id="btn_submit" class="btn btn-sm" style="color:white; background-color: #34495e">LOGIN</button>
                     </div>

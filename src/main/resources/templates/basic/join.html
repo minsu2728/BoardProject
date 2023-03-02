@@ -101,16 +101,11 @@
         color: black;
     }
 
-
-
-
-
 </style>
-
 
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
-<!--
+
 
 let idClickCheck = false;
 
@@ -263,7 +258,7 @@ let idClickCheck = false;
            function func_idCheck(){
 
             let idClickCheck = true;
-            alert("아이디 확인");
+
 
             // 아이디 체크버튼을 누르면
             const $id = $("input#id").val().trim();
@@ -281,8 +276,10 @@ let idClickCheck = false;
 	            	if(text=="1"){ // 사용가능
 	            		$("div#id_ok").show();
 	            		$("input#pwd").focus();
+	            		$("div#id_no").hide();
+	            		$("div.msg").hide();
 	            	}
-	            	if(text=="0"){ // 중복
+	            	if(text=="null"){ // 중복
 	            	    $("div#id_no").show();
 	            	    $("input#id").focus();
 	            	    $("div#id_ok").hide();
@@ -290,7 +287,7 @@ let idClickCheck = false;
 	            	}
 
 	            	if(text=="-1"){ // 모든경우
-                        $("div.msg").hide();
+                        $("div.msg").show();
 	            	}
 
 	            },error: function(request, status, error){
@@ -304,7 +301,7 @@ let idClickCheck = false;
     // 가입하기 버튼 클릭시
     function go_join(){
 
-            alert("누름");
+        alert("누름");
 	    const check = $("input").val().trim();
 
         if(check != ""){
@@ -313,11 +310,10 @@ let idClickCheck = false;
             frm.action = "http://localhost:8080/board/joinEnd";
             frm.method="POST";
             frm.submit();
-
         }
 
     }
--->
+
 
 </script>
 <body>

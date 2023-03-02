@@ -3,10 +3,12 @@ package com.project.board.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /*
 >>> @Entity <<<
@@ -27,25 +29,27 @@ import java.time.LocalDate;
 @Entity
 @Data
 @AllArgsConstructor // 이필드 모두를 매개변수로 사용할 수 있는 생성자를 만들어줌
+@NoArgsConstructor
 @Table(name="tbl_board")
 public class Board {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long subno;
+    private Long subno;
 
     @Column
-    private long fk_mnum;
+    private Long fk_mnum;
 
     @Column
     private String subject;
 
     @Column
-    private String contnent;
+    private String content;
 
-    @Column
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate registerdate;
+    @CreatedDate
+    private LocalDateTime registerdate;
+
+
 
 /*
     // 기본생성자 필수

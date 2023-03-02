@@ -3,10 +3,12 @@ package com.project.board.service;
 import com.project.board.entity.Board;
 import com.project.board.repository.InterBoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BoardService {
@@ -20,6 +22,33 @@ public class BoardService {
     }
 
 
+    //글쓰기
+    public void boardWrite(Board board){
+        boardRepository.save(board);
+    }
+
+
+    // 글 상세보기
+    public Board boardView(Long subno) {
+        return boardRepository.findById(subno).get();
+    }
+
+
+    // 특정글 삭제
+    public void boardDelete(Long subno) {
+        boardRepository.deleteById(subno);
+    }
+
+/*
+    // 검색기능
+    public Page<Board> boardSearch(String searchKeyword, Pageable pageable){
+        return boardRepository.search(searchKeyword,pageable);
+    }*/
+
+    // 페이징처리
+    public Page<Board> boardList(Pageable pageable){
+        return boardRepository.findAll(pageable);
+    }
 
 
 
