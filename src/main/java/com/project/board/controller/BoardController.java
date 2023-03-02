@@ -26,7 +26,7 @@ public class BoardController {
     // 첫화면
     @GetMapping("/boardHome")
     public String home(Model model, Board board
-                        , @PageableDefault(page = 0, size = 10, sort = "subno", direction = Sort.Direction.DESC ) Pageable pageable) {// @PageableDefault은 페이징처리할 때 필요한 기능
+                        , @PageableDefault(page = 0, size = 5, sort = "subno", direction = Sort.Direction.DESC ) Pageable pageable) {// @PageableDefault은 페이징처리할 때 필요한 기능
                         /*, String searchKeyword)*/
 /*
 
