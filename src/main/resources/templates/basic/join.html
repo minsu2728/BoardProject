@@ -305,7 +305,6 @@ let idClickCheck = false;
 	    const check = $("input").val().trim();
 
         if(check != ""){
-            swal('회원가입 완료', '회원가입이 성공적으로 처리되었습니다.', 'success');
             const frm = document.frm_join;
             frm.action = "http://localhost:8080/board/joinEnd";
             frm.method="POST";
@@ -327,7 +326,7 @@ let idClickCheck = false;
                     <a href="http://localhost:8080/login"><i class="fas fa-sign-in-alt"></i>LOGIN</a>
 
                     <a href="http://localhost:8080/boardHome"><i class="fas fa-home fa-lg"></i>HOME</a>
-                    <a href="http://localhost:8080/join"><i class="fas fa-sign-in-alt"></i>JOIN</a>
+                    <a href="http://localhost:8080/join"><i class="fas fa-user-plus"></i>JOIN</a>
                 </nav>
             </div>
 

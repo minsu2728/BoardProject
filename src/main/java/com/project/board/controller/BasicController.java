@@ -29,22 +29,29 @@ public class BasicController {
 
     // 로그인 처리
     @RequestMapping(value="/loginEnd", method = RequestMethod.POST)
-    public String loginEnd(Model model, Member member, HttpServletResponse  response, HttpSession session){  // BindResult 검증 오류가 발생할 경우 오류 내용을 보관하는 스프링 프레임워크에서 제공하는 객체
+    public String loginEnd(Model model, Member member, HttpSession session){  // BindResult 검증 오류가 발생할 경우 오류 내용을 보관하는 스프링 프레임워크에서 제공하는 객체
         System.out.println(member.getId());
         System.out.println(member.getPwd());
 
         Member loginuser = basicService.login(member);
 
-        session.setAttribute("loginuser",loginuser);
+        session.setAttribute("user",loginuser.getId());
+        session.setAttribute("username",loginuser.getName());
         model.addAttribute("loginuser",loginuser);
 
+        System.out.println("세션"+ loginuser.getId());
+        System.out.println("모델"+ loginuser);
+
+
         if(loginuser == null) {
+
             model.addAttribute("message","로그인 실패");
-            model.addAttribute("loc","redirect:/login");
+            model.addAttribute("loc","javascript:history.back()");
             return "msg";
         }
-        model.addAttribute("loc","/boardHome");
+
         model.addAttribute("message","로그인성공");
+        model.addAttribute("loc","http://localhost:8080/boardHome");
 
        return "msg";
     }
@@ -90,14 +97,15 @@ public class BasicController {
             Member n = basicService.joinEnd(member);
 
             if(!n.getId().isEmpty()){
+
+                String loc = "http://localhost:8080/login";
                 model.addAttribute("message", "회원가입이 성공적으로 처리되었습니다.");
-                model.addAttribute("loc", "/boardHome");
+                model.addAttribute("loc", loc);
                 return "msg";
             }
-                String message = "회원가입 실패.";
                 String loc = "javascript:history.back()";
 
-                model.addAttribute("message", message);
+                model.addAttribute("message", "회원가입 실패");
                 model.addAttribute("loc", loc);
 
         }catch (Exception e) {
