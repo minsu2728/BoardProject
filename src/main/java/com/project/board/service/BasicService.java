@@ -4,6 +4,7 @@ import com.project.board.entity.Member;
 import com.project.board.repository.InterBasicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -36,7 +37,6 @@ public class BasicService {
         if(loginuser == null){
             return null;
         }
-
         if(!loginuser.getPwd().equals(member.getPwd())){
             return null;
         }

@@ -6,9 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -21,8 +18,20 @@ public class BasicController {
     // 로그인
     @GetMapping("/login")
     public String login(){
-
         return "basic/login";
+    }
+
+    // 로그아웃
+    @GetMapping("/logout")
+    public String logout(HttpSession session, Model model){
+
+        if (session != null) {
+            session.invalidate();  //  세션만료시키기
+        }
+
+        model.addAttribute("message","로그아웃");
+        model.addAttribute("loc","http://localhost:8080/boardHome");
+        return "msg";
     }
 
 
@@ -30,33 +39,26 @@ public class BasicController {
     // 로그인 처리
     @RequestMapping(value="/loginEnd", method = RequestMethod.POST)
     public String loginEnd(Model model, Member member, HttpSession session){  // BindResult 검증 오류가 발생할 경우 오류 내용을 보관하는 스프링 프레임워크에서 제공하는 객체
-        System.out.println(member.getId());
-        System.out.println(member.getPwd());
 
         Member loginuser = basicService.login(member);
 
-        session.setAttribute("user",loginuser.getId());
+        session.setAttribute("userid",loginuser.getId());
         session.setAttribute("username",loginuser.getName());
+        session.setAttribute("userno",loginuser.getMnum());
         model.addAttribute("loginuser",loginuser);
 
-        System.out.println("세션"+ loginuser.getId());
-        System.out.println("모델"+ loginuser);
-
-
         if(loginuser == null) {
-
             model.addAttribute("message","로그인 실패");
-            model.addAttribute("loc","javascript:history.back()");
+            model.addAttribute("loc","http://localhost:8080/login");
+            return "msg";
+
+        } else{
+            model.addAttribute("message","로그인성공");
+            model.addAttribute("loc","http://localhost:8080/boardHome");
             return "msg";
         }
 
-        model.addAttribute("message","로그인성공");
-        model.addAttribute("loc","http://localhost:8080/boardHome");
-
-       return "msg";
     }
-
-
 
 
     // 회원가입
@@ -71,15 +73,10 @@ public class BasicController {
     @RequestMapping(value="/board/idCheck", method = RequestMethod.POST)
     public String idCheck(Model model, Member member){
 
-        System.out.println(member.getId());
-
         if(member.getId().isEmpty()) {
             return "-1";
         }
         List<Member> findIdCheck = basicService.findIdCheck(member.getId());
-
-        System.out.println("!!!" + findIdCheck );
-
 
         if(findIdCheck.size() > 0){ // 멤버 존재
             return "null";
@@ -113,12 +110,15 @@ public class BasicController {
         }
         return "msg";
     }
-    
-    // 로그아웃
-    @GetMapping("/logout")
-    public String logout(){
 
-        return "redirect:boardHome";
+    @PostMapping("/update")
+    public String update(Member member, Model model){
+
+
+
+        return "";
     }
+    
+
 
 }

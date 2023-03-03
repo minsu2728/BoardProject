@@ -13,11 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.List;
 
 
 @Controller
-public class BoardController {
+public class BoardController<Session> {
 
     @Autowired
     private BoardService boardService;
@@ -40,7 +41,7 @@ public class BoardController {
 */
 
         Page<Board> pageList =  boardService.boardList(pageable);
-        System.out.println("!!!" +  boardService.boardList(pageable));
+
 
         int nowPage = pageList.getPageable().getPageNumber() +1;
         int startPage = Math.max( nowPage - 4 ,1);
@@ -64,10 +65,7 @@ public class BoardController {
 
     /// 글작성 처리
     @PostMapping("/board/wirteGo")
-    public String writeGo(Board board, Model model){
-        System.out.println(board.getSubject());
-        System.out.println(board.getContent());
-
+    public String writeGo(Board board, Model model, Session session){
         boardService.boardWrite(board);
         return "redirect:/boardHome";
     }
@@ -109,23 +107,6 @@ public class BoardController {
 
         return "redirect:/boardHome";
     }
-
-
-    /*
-     model.addAttribute("board", boardService.boardUpdate(Board.subno));*/
-
-    /*---------------------------------------------------------------------------------*/
-
-
-
-/*
-
-
-*/
-
-  /*
-
-*/
 
 
 

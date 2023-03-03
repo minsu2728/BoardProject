@@ -1,14 +1,16 @@
 package com.project.board.entity;
 
+
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+
 
 /*
 >>> @Entity <<<
@@ -46,8 +48,17 @@ public class Board {
     @Column
     private String content;
 
-    @CreatedDate
+
+    @Column
+    private String writer;
+
+
+    // @CreatedDate
+    @Generated(GenerationTime.INSERT)
+    @Column(name = "REGISTERDATE", updatable = false, insertable = false)
     private LocalDateTime registerdate;
+
+
 
 
 

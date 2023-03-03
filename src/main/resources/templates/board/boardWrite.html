@@ -78,7 +78,6 @@
 
           $("button#btn_join").click(function(){
 
-
             const $subject = $("input#subject").val().trim();
             const $content = $("textarea#content").val().trim();
 
@@ -92,7 +91,9 @@
                $("textarea#content").focus();
             }
                 func_submit();
-          });
+          }); // buttton
+
+
     });
 
     function func_submit(){
@@ -109,15 +110,30 @@
 
 <div id="wrap" align="center">
     <div id="common">
+    ㄴ
         <div id="banner" align="right">
             <nav>
-                <a href="http://localhost:8080/login"><i class="fas fa-sign-in-alt"></i>LOGIN</a>
+                <th:block th:if ="${session.userid} == null">
+                    <a href="http://localhost:8080/login"><i class="fas fa-sign-in-alt"></i>LOGIN</a>
+                </th:block>
 
-                <span>님</span><a href="http://localhost:8080/logout"><i class="fa-solid fa-arrow-right-from-bracket"></i>LOGOUT</a>
+                <th:block th:if="${session.userid} != null">
+                    <span  th:text="${session.username}+'님'"></span> <a href="http://localhost:8080/update"><i class="fas fa-user-edit"></i>정보수정</a>
+                </th:block>
+
+                <th:block th:if ="${session.userid} == null">
+                    <a href="http://localhost:8080/join"><i class="fas fa-user-plus"></i>JOIN</a>
+                </th:block>
+
+
+                <th:block th:if="${session.userid} != null">
+                    <a href="http://localhost:8080/logout"><i class="fas fa-sign-in-alt"></i>LOGOUT</a>
+                </th:block>
+
                 <a href="http://localhost:8080/boardHome"><i class="fas fa-home fa-lg"></i>HOME</a>
-                <a href="http://localhost:8080/join"><i class="fas fa-user-plus"></i>JOIN</a>
             </nav>
         </div>
+
         <header id="header">
             <img src="../images/mainlogo.png">
         </header>
@@ -127,6 +143,12 @@
             <div id="container">
                 <table class="table ">
                     <tbody>
+                    <tr>
+                        <td>작성자<td>
+                        <td><input type="text" th:placeholder="${session.username}"
+                                   th:value="${session.username}" name="writer" id="writer" readonly autofocus required/>
+                        </td>
+                    </tr>
                     <tr>
                         <td>제목<td>
                         <td><input type="text" id="subject" name="subject" autofocus required/></td>

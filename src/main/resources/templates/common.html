@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta charset="UTF-8">
@@ -80,12 +80,24 @@
 
 <div id="wrap" align="center">
     <div id="common">
-
         <div id="banner" align="right">
             <nav>
-                <a href="http://localhost:8080/login"><i class="fas fa-sign-in-alt"></i>LOGIN</a>
+                <th:block th:if ="${session.user} == null">
+                    <a href="http://localhost:8080/login"><i class="fas fa-sign-in-alt"></i>LOGIN</a>
+                </th:block>
                 <a href="http://localhost:8080/boardHome"><i class="fas fa-home fa-lg"></i>HOME</a>
-                <a href="http://localhost:8080/join"><i class="fas fa-user-plus"></i>JOIN</a>
+
+                <th:block th:if ="${session.user} == null">
+                    <a href="http://localhost:8080/join"><i class="fas fa-user-plus"></i>JOIN</a>
+                </th:block>
+                <th:block th:if="${session.user} != null">
+                    <span  th:text="${session.username}+'님'"></span> <a href="http://localhost:8080/update"><i class="fas fa-user-edit"></i>정보수정</a>
+                </th:block>
+
+                <th:block th:if="${session.user} != null">
+                    <a href="http://localhost:8080/logout"><i class="fas fa-sign-in-alt"></i>LOGOUT</a>
+                </th:block>
+
             </nav>
         </div>
 

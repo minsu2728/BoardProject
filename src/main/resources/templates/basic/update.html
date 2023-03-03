@@ -134,23 +134,22 @@
     <div id="wrap" align="center">
         <div id="common">
 
-
             <div id="banner" align="right">
                 <nav>
-                    <th:block th:if ="${session.user} == null">
+                    <th:block th:if ="${session.userid} == null">
                         <a href="http://localhost:8080/login"><i class="fas fa-sign-in-alt"></i>LOGIN</a>
                     </th:block>
 
-                    <th:block th:if="${session.user} != null">
+                    <th:block th:if="${session.userid} != null">
                         <span  th:text="${session.username}+'님'"></span> <a href="http://localhost:8080/update"><i class="fas fa-user-edit"></i>정보수정</a>
                     </th:block>
 
-                    <th:block th:if ="${session.user} == null">
+                    <th:block th:if ="${session.userid} == null">
                         <a href="http://localhost:8080/join"><i class="fas fa-user-plus"></i>JOIN</a>
                     </th:block>
 
 
-                    <th:block th:if="${session.user} != null">
+                    <th:block th:if="${session.userid} != null">
                         <a href="http://localhost:8080/logout"><i class="fas fa-sign-in-alt"></i>LOGOUT</a>
                     </th:block>
 

@@ -1,6 +1,7 @@
 package com.project.board.service;
 
 import com.project.board.entity.Board;
+import com.project.board.repository.InterBasicRepository;
 import com.project.board.repository.InterBoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,6 +17,9 @@ public class BoardService {
     @Autowired
     private InterBoardRepository boardRepository;
 
+    @Autowired
+    private InterBasicRepository basicRepository;
+
     // 글 리스트 불러오기
     public List<Board> boardList() {
         return boardRepository.findAll();
@@ -24,6 +28,7 @@ public class BoardService {
 
     //글쓰기
     public void boardWrite(Board board){
+        //board.setWriter(basicRepository.findById(board.getFk_mnum()).get().getName());
         boardRepository.save(board);
     }
 

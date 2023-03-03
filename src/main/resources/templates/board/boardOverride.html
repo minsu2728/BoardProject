@@ -109,13 +109,27 @@
 
 <div id="wrap" align="center">
     <div id="common">
+
         <div id="banner" align="right">
             <nav>
-                <a href="http://localhost:8080/login"><i class="fas fa-sign-in-alt"></i>LOGIN</a>
+                <th:block th:if ="${session.userid} == null">
+                    <a href="http://localhost:8080/login"><i class="fas fa-sign-in-alt"></i>LOGIN</a>
+                </th:block>
 
-                <span>님</span><a href="http://localhost:8080/logout"><i class="fa-solid fa-arrow-right-from-bracket"></i>LOGOUT</a>
+                <th:block th:if="${session.userid} != null">
+                    <span  th:text="${session.username}+'님'"></span> <a href="http://localhost:8080/update"><i class="fas fa-user-edit"></i>정보수정</a>
+                </th:block>
+
+                <th:block th:if ="${session.userid} == null">
+                    <a href="http://localhost:8080/join"><i class="fas fa-user-plus"></i>JOIN</a>
+                </th:block>
+
+
+                <th:block th:if="${session.userid} != null">
+                    <a href="http://localhost:8080/logout"><i class="fas fa-sign-in-alt"></i>LOGOUT</a>
+                </th:block>
+
                 <a href="http://localhost:8080/boardHome"><i class="fas fa-home fa-lg"></i>HOME</a>
-                <a href="http://localhost:8080/join"><i class="fas fa-user-plus"></i>JOIN</a>
             </nav>
         </div>
         <header id="header">
@@ -125,15 +139,21 @@
         <form name="frm_update" th:action="@{/board/boardUpdate/{subno}(subno=${board.subno})}" method="post">
             <section>
             <div id="container">
+
                 <table class="table ">
                     <tbody>
+                    <tr>
+                        <td>작성자<td>
+                        <td><input type="text" th:value="${board.writer}" name="writer" id="writer" readonly autofocus required/>
+                        </td>
+                    </tr>
                     <tr>
                         <td>제목<td>
                         <td><input type="text" id="subject" th:value="${board.subject}" name="subject" autofocus required/></td>
                     </tr>
                     <tr>
                         <td>내용<td>
-                        <td><textarea name="content" th:text="${board.subject}" id="content"></textarea></td>
+                        <td><textarea name="content" th:text="${board.content}" id="content"></textarea></td>
                         <input  sty type="hidden" th:value="${board.subno}" id="subno" name="subno"/>
                     </tr>
                     </tbody>

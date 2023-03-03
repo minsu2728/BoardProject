@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <meta charset="UTF-8">
@@ -70,6 +70,23 @@
     color: white;
   }
 
+  div#container{
+    width:50%;
+  }
+
+  button#btn_reg{
+    background-color: #34495e;
+    color: white;
+    border: none;
+    margin-left: 2%;
+    width : 13%;
+  }
+
+  div#button_com > a{
+    cursor : pointer;
+
+  }
+
 
 </style>
 
@@ -79,37 +96,39 @@
 
     $(document).ready(function() {
 
-        $("button#btn_del").click(function(){
-
+          $("button#btn_reg").click(function(){
+            alert("등록버튼 누름");
+            func_reg();
         });
-
 
     }); // end of  $(document).ready(){
 
 
-    function func_update(subno){
+    function func_reg(){
+
+		$.ajax({
+			url:"/board/commentup",
+			data: {"fk_mnum":$('input#fk_mnum').val(),
+			       "fk_subno":$('input#fk_subno').val(),
+			       "comtitle":$('input#comtitle').val()},
+			type:"POST",
+			dataType:"text",
+			success:function(data){
+
+			    if("return" != null){
+                    alert("성공");
+
+			    }else{
+			        swal("실패");
+			        location.href("redirect:/")
+			    }
 
 
-       $.ajax({
-            url : 'http://localhost:8080/board/boardUpdate',
-            data:{"subno":$("input:name='subno'").val()},
-            type:'POST',
-            dataType:'text',
-            cache:false,
-            success:function(text){
-                if(text=="1"){ // 사용가능
-                    alert("글이 정상적으로 삭제되었습니다.");
-                    locatiion.href="http://localhost:8080/board/boardHome";
-                }
-                if(text=="1"){ // 중복
-                    alert("글이 정상적으로 삭제되었습니다.");
-                    locatiion.href="redirect:/board.boardView";
-                }
 
             },error: function(request, status, error){
                 alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
                 }
-            }); // $ajax
+        }); // $ajax
 
 
     }
@@ -125,31 +144,74 @@
 
         <div id="banner" align="right">
             <nav>
-                <a href="http://localhost:8080/login"><i class="fas fa-sign-in-alt"></i>LOGIN</a>
-                <a href="http://localhost:8080/logout"><i class="fas fa-sign-in-alt"></i>LOGOUT</a>
+                <th:block th:if ="${session.userid} == null">
+                    <a href="http://localhost:8080/login"><i class="fas fa-sign-in-alt"></i>LOGIN</a>
+                </th:block>
+
+                <th:block th:if="${session.userid} != null">
+                    <span  th:text="${session.username}+'님'"></span> <a href="http://localhost:8080/update"><i class="fas fa-user-edit"></i>정보수정</a>
+                </th:block>
+
+                <th:block th:if ="${session.userid} == null">
+                    <a href="http://localhost:8080/join"><i class="fas fa-user-plus"></i>JOIN</a>
+                </th:block>
+
+
+                <th:block th:if="${session.userid} != null">
+                    <a href="http://localhost:8080/logout"><i class="fas fa-sign-in-alt"></i>LOGOUT</a>
+                </th:block>
+
                 <a href="http://localhost:8080/boardHome"><i class="fas fa-home fa-lg"></i>HOME</a>
-                <a href="http://localhost:8080/join"><i class="fas fa-user-plus"></i>JOIN</a>
             </nav>
         </div>
-
         <header id="header">
             <img src="../images/mainlogo.png">
         </header>
 
         <section>
-
-            <div align="right" id="btn_button">
-                <button type="button" id="btn_del" class="btn btn-sm" th:onclick="|location.href='@{/board/boardDelete(subno=${board.subno})}'|">삭제</button>
-
-                <button type="button" id="btn_up" class="btn btn-sm"  th:onclick="|location.href='@{/board/override/{subno}(subno=${board.subno})}'|">수정</button>
+            <div id="container">
+            <div align="right" id="btn_button"   th:if ="${session.username} != '${board.writer}'">
+                    <button type="button" id="btn_del" class="btn btn-sm" th:onclick="|location.href='@{/board/boardDelete(subno=${board.subno})}'|">삭제</button>
+                    <button type="button" id="btn_up" class="btn btn-sm"  th:onclick="|location.href='@{/board/override/{subno}(subno=${board.subno})}'|">수정</button>
+            </div>
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td>작성자<td>
+                        <td><p th:text="${board.writer}"></p></td>
+                    </tr>
+                    <tr>
+                        <td>제목<td>
+                        <td><p th:text="${board.subject}">내용</p></td>
+                    </tr>
+                    <tr>
+                        <td>내용<td>
+                        <td><p th:text="${board.content}" style="min-height:100px; padding-top:2%;">내용</p></td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
 
-            <div style="margin: 5% 0;">
-                <div align="left"><p th:text="${board.subject}" style="border:solid 1px black;">제목</p></div>
-                <p th:text="${board.content}" style="border:solid 1px black; height:300px; padding-top:2%;">내용</p>
-                <input  sty type="hidden" th:value="${board.subno}" id="subno" name="subno"/>
-            </div>
+            <form name="frm_comment">
+                <div id="com_box" align="left" style="min-height:100px;">
+                    <div class="mb-3">댓글<i class="fas fa-comment-dots"></i></div>
+                    <input type="text" name="comtitle" style="width:84%;" id="comtitle"/><button  id="btn_reg" class="btn-sm">등록</button>
+                    <input type="hidden" th:value="${board.subno}"  name="fk_subno" id="fk_subno">
+                    <input type="hidden"th:value="${session.userno}" name="fk_mnum" id="fk_mnum">
+                </div>
+            </form>
+
+                <input type="text" th:value="${session.username}" name="writer" id="writer" readonly autofocus required/>
+                    <div align="left" th:each="comment: ${comment}">
+                        <p th:text="${comment.comtitle}">댓글나얼히ㅏㅇ널;니</p>
+                        <div align="right" id="button_com" >
+                            <a>삭제</a>
+                            <a>수정</a>
+                        </div>
+                    </div>
+
         </section>
+
 
         <footer style="margin-top:5%;">
             <div align="center">

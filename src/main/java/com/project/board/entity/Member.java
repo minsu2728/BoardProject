@@ -4,6 +4,8 @@ package com.project.board.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -36,7 +38,8 @@ public class Member {
     @Column
     private String mobile;
 
-    @CreatedDate
+
+    @Generated(GenerationTime.INSERT)
     private LocalDateTime regdate;
 
 

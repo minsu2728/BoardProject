@@ -77,9 +77,12 @@
   th,td{
     text-align: center;
   }
+  table{
+    margin-bottom:5%;
+  }
+
 
   button#btn_write{
-    margin: 5% 0;
     background-color: #34495e;
     color:white;
   }
@@ -97,6 +100,10 @@
   #page{
     text-decoration: none;
     color: #34495e;
+  }
+
+  a > i > span{
+    display:block;
   }
 
 </style>
@@ -117,15 +124,24 @@
 
         <div id="banner" align="right">
             <nav>
-                <th:block th:if ="${session.user} == null">
+                <th:block th:if ="${session.userid} == null">
                    <a href="http://localhost:8080/login"><i class="fas fa-sign-in-alt"></i>LOGIN</a>
                 </th:block>
-                <th:block th:if="${session.user} != null">
-                    <span  th:text="${session.username}+'님'"></span><a href="http://localhost:8080/logout"><i class="fas fa-sign-in-alt"></i>LOGOUT</a>
+
+                <th:block th:if="${session.userid} != null">
+                    <span  th:text="${session.username}+'님'"></span> <a href="http://localhost:8080/update"><i class="fas fa-user-edit"></i>정보수정</a>
+                </th:block>
+
+                <th:block th:if ="${session.userid} == null">
+                    <a href="http://localhost:8080/join"><i class="fas fa-user-plus"></i>JOIN</a>
+                </th:block>
+
+
+                <th:block th:if="${session.userid} != null">
+                   <a href="http://localhost:8080/logout"><i class="fas fa-sign-in-alt"></i>LOGOUT</a>
                 </th:block>
 
                 <a href="http://localhost:8080/boardHome"><i class="fas fa-home fa-lg"></i>HOME</a>
-                <a href="http://localhost:8080/join"><i class="fas fa-user-plus"></i>JOIN</a>
             </nav>
         </div>
 
@@ -149,7 +165,8 @@
                     <tr>
                         <th style="width:25%;">글번호</th>
                         <th style="width:35%;">제목</th>
-                        <th style="width:40%;">내용</th>
+                        <th style="width:20%;">작성자</th>
+                        <th style="width:20%;">작성일</th>
                        <!-- <th style="width:10%;">작성일</th>-->
                     </tr>
                 </thead>
@@ -157,15 +174,17 @@
                    <tr th:each="board:${boardList}">
                         <td th:text="${board.subno}">1</td>
                         <td>
-                            <a id="atag" th:text="${board.subject}" th:href="@{/board/boardView(subno=${board.subno})}">안녕</a>
+                            <a id="atag" th:text="${board.subject}" th:href="@{/board/boardView(subno=${board.subno})}"></a>
                         </td>
-                        <td  th:text="${board.content}">민수</td>
-                     <!--   <td  th:text="${board.registerdate}">2002</td>-->
+                        <td  th:text="${board.writer}"></td>
+                        <td  th:text="${#temporals.format(board.registerdate, 'yyyy-MM-dd')}"></td>
                     </tr>
                 </tbody>
             </table>
 
-            <div align="right"><button type="button" id="btn_write" class="btn btn-sm"><a href="http://localhost:8080/board/boardWrite">+ 글작성</a></button></div>
+            <th:block th:if="${session.userid} != null">
+                <div align="right"><button type="button" id="btn_write" class="btn btn-sm"><a href="http://localhost:8080/board/boardWrite">+ 글작성</a></button></div>
+            </th:block>
 
             <th:block id="page" th:each="page : ${#numbers.sequence(startPage, endPage)}">
                 <a th:if="${page != nowPage}" th:href="@{/boardHome(page = ${page -1})}" th:text="${page}"></a>
@@ -173,7 +192,6 @@
             </th:block>
 
         </section>
-
 
         <footer style="margin-top:5%;">
             <div align="center">
