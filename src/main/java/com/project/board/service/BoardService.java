@@ -1,8 +1,10 @@
 package com.project.board.service;
 
 import com.project.board.entity.Board;
+import com.project.board.entity.Comment;
 import com.project.board.repository.InterBasicRepository;
 import com.project.board.repository.InterBoardRepository;
+import com.project.board.repository.InterCommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +22,9 @@ public class BoardService {
     @Autowired
     private InterBasicRepository basicRepository;
 
+    @Autowired
+    private InterCommentRepository commentRepository;
+
     // 글 리스트 불러오기
     public List<Board> boardList() {
         return boardRepository.findAll();
@@ -34,14 +39,24 @@ public class BoardService {
 
 
     // 글 상세보기
-    public Board boardView(Long subno) {
+    public Board boardView(Integer subno) {
         return boardRepository.findById(subno).get();
+    }
+
+    // 댓글 리스트
+    public List<Comment> commentList(Integer subno) {
+        return commentRepository.findByFkSubno(subno);
     }
 
 
     // 특정글 삭제
-    public void boardDelete(Long subno) {
+    public void boardDelete(Integer subno) {
         boardRepository.deleteById(subno);
+    }
+
+    // 댓글 등록
+    public void commentup(Comment comment) {
+        commentRepository.save(comment);
     }
 
 /*
@@ -54,7 +69,6 @@ public class BoardService {
     public Page<Board> boardList(Pageable pageable){
         return boardRepository.findAll(pageable);
     }
-
 
 
 }

@@ -24,7 +24,7 @@ public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment지정
-    private Long mnum;
+    private Integer mnum;
 
     @Column(unique = true)
     private String id;

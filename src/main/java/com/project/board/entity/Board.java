@@ -37,9 +37,9 @@ public class Board {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long subno;
+    private Integer subno;
 
-    @Column
+    @Column(name="fk_mnum")
     private Long fk_mnum;
 
     @Column
